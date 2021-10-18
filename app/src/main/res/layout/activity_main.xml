@@ -28,24 +28,34 @@
             android:id="@+id/ivplus"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginStart="10dp"
             android:src="@drawable/plus"
             android:textAlignment="center"
-            app:layout_constraintEnd_toStartOf="@id/ivmin"
+            app:layout_constraintEnd_toStartOf="@id/speed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:tint="@color/white" />
 
+        <TextView
+            android:id="@+id/speed"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/ivplus"
+            app:layout_constraintTop_toTopOf="@id/ivplus"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/ivplus"
+            android:text="0"/>
+
         <ImageView
             android:id="@+id/ivmin"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:layout_constraintStart_toEndOf="@id/ivplus"
-            app:layout_constraintTop_toTopOf="@id/ivplus"
+            app:layout_constraintStart_toEndOf="@id/speed"
+            app:layout_constraintTop_toTopOf="@id/speed"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/min"
-            app:layout_constraintBottom_toBottomOf="@id/ivplus"
+            app:layout_constraintBottom_toBottomOf="@id/speed"
             android:layout_marginStart="10dp"
             app:tint="@color/white" />
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.observeCount().observe(this , {
             speedScroll = it
             SPEED = it
+            mBinding.speed.setText(it.toString())
         })
 
         mBinding.ivmin.setOnClickListener {
@@ -50,9 +51,8 @@ class MainActivity : AppCompatActivity() {
         viewModel.observeCount().observe(this, {
             speedScroll = it
             Log.d("ahsan" , it.toString())
-
+            mBinding.speed.setText(it.toString())
             appListAdopter?.notifyDataSetChanged()
-
         })
 
         mSetAdopter()

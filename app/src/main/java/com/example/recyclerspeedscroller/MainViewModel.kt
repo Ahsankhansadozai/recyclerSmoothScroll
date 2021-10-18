@@ -23,8 +23,9 @@ class MainViewModel : ViewModel() {
     }
 
     fun disSpeed() {
-            mCOunt - 500
-            postCount()
+        mCOunt -= 500
+        Log.d("Vm ahsan", mCOunt.toString())
+        postCount()
     }
 
     fun observeCount(): MutableLiveData<Int> = observeCount

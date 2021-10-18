@@ -1,4 +1,5 @@
 package com.example.recyclerspeedscroller
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     var speedScroll = 0
 
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -47,7 +49,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.observeCount().observe(this, {
             speedScroll = it
-            SPEED = it
             Log.d("ahsan" , it.toString())
 
             appListAdopter?.notifyDataSetChanged()

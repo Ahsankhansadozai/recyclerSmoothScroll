@@ -1,6 +1,7 @@
 package com.example.recyclerspeedscroller
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.DisplayMetrics
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -14,8 +15,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var mBinding: ActivityMainBinding
     var arrayList: ArrayList<String>? = null
     private var appListAdopter: Adopter? = null
-    private var SPEED = 2000 // Change this value (default=25f)
-    var speedScroll = 1000
+    private var SPEED  = 0// Change this value (default=25f)
+    var speedScroll = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,14 +28,21 @@ class MainActivity : AppCompatActivity() {
         //init view model
         val viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        mBinding.ivplus.setOnClickListener {
-            //increasing the speed
-            viewModel.incSpeed()
-        }
+        viewModel.observeCount().observe(this , {
+            speedScroll = it
+            SPEED = it
+        })
 
         mBinding.ivmin.setOnClickListener {
+            //increasing the speed
+            viewModel.incSpeed()
+            appListAdopter?.notifyDataSetChanged()
+        }
+
+        mBinding.ivplus.setOnClickListener {
             //decreasing the speed
             viewModel.disSpeed()
+            appListAdopter?.notifyDataSetChanged()
         }
 
         viewModel.observeCount().observe(this, {
@@ -42,7 +50,8 @@ class MainActivity : AppCompatActivity() {
             SPEED = it
             Log.d("ahsan" , it.toString())
 
-            setUpRecyclerView();
+            appListAdopter?.notifyDataSetChanged()
+
         })
 
         mSetAdopter()
@@ -55,7 +64,7 @@ class MainActivity : AppCompatActivity() {
          mBinding.mainRecyler.isNestedScrollingEnabled = false
          mBinding.mainRecyler.setHasFixedSize(true)*/
 
-        setUpRecyclerView();
+        setUpRecyclerView()
 
     }
 
@@ -208,7 +217,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun autoScroll() {
-        val handler = Handler()
+        val handler = Handler(Looper.getMainLooper())
         handler.postDelayed(object : Runnable {
             var count = 0
             override fun run() {
@@ -232,6 +241,7 @@ class MainActivity : AppCompatActivity() {
                     object : LinearSmoothScroller(baseContext) {
 
                         override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics): Float {
+                            Log.d("ahsan","speed us $SPEED")
                             return SPEED.toFloat() / displayMetrics.densityDpi
                         }
                     }

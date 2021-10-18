@@ -8,8 +8,12 @@ class MainViewModel : ViewModel() {
     private var mCOunt = 1000
     private val observeCount: MutableLiveData<Int> = MutableLiveData()
 
+    init {
+        postCount()
+    }
+
     fun incSpeed() {
-        mCOunt += 1000
+        mCOunt += 500
         Log.d("Vm ahsan", mCOunt.toString())
         postCount()
     }
@@ -19,13 +23,8 @@ class MainViewModel : ViewModel() {
     }
 
     fun disSpeed() {
-
-        if (mCOunt > 1000) {
-            mCOunt - 1000
+            mCOunt - 500
             postCount()
-        }
-
-
     }
 
     fun observeCount(): MutableLiveData<Int> = observeCount
